@@ -1,32 +1,32 @@
-const divukas = document.createElement("div");
-divukas.setAttribute("id", "container");
-document.body.append(divukas);
+const inputDiv = document.createElement("div");
+inputDiv.setAttribute("id", "inputDiv");
+document.body.append(inputDiv);
 
-const container = document.getElementById("container");
-container.style.boxSizing = "border-box";
-container.style.display = "grid";
+const inputContainer = document.getElementById("inputDiv");
 
-const input = document.createElement("input");
-input.type = "text";
-input.placeholder = "search for movie";
-input.style.marginBottom = "15px";
-input.style.border = "thin solid black";
-input.style.height = "20px";
-input.style.width = "250px";
+const inputElement = inputContainer.appendChild(
+  document.createElement("input"),
+);
+inputElement.className = "input";
+inputElement.type = "text";
+inputElement.placeholder = "search for movie";
 
 const button = document.createElement("button");
+button.setAttribute("id", "button");
 button.innerText = "show me some movies!";
-button.style.height = "40px";
-button.style.width = "250px";
-button.style.border = "thick solid black";
-button.style.borderRadius = "10px";
-button.style.marginBottom = "15px";
+inputContainer.append(inputElement, button);
 
-container.append(input, button);
+const cardDiv = document.createElement("div");
+cardDiv.setAttribute("id", "cardsDiv");
+document.body.append(cardDiv);
+
+const cardContainer = document.getElementById("cardsDiv");
+cardContainer.setAttribute("class", "cards");
 
 const getInfo = async (event) => {
   event.preventDefault();
-  const inputValue = input.value.trim();
+  const inputValue = inputElement.value.trim().replace(/[^a-zA-Z0-9\s]/g, "");
+  console.log(`paieskoje ivedete: ${inputValue}`);
   const result = await fetch(
     `http://www.omdbapi.com/?apikey=900f786b&s=${encodeURIComponent(
       inputValue,
@@ -38,21 +38,30 @@ const getInfo = async (event) => {
   console.log(data);
 
   // clear movie cards
-  const allMovieImgs = document.querySelectorAll("img");
-  allMovieImgs.forEach((image) => image.remove());
+  const allMovieCards = document.querySelectorAll(".card");
+  allMovieCards.forEach((card) => card.remove());
 
   if (data.Response === "False") {
     alert("no such movie is found :(");
   } else {
-    data.Search.map((image) => {
+    data.Search.map((searchResult) => {
       const card = document.createElement("div");
       card.className = "card";
-      container.append(card);
+      cardContainer.append(card);
 
       const cardImg = document.createElement("img");
-      cardImg.classname = "movieImg";
-      cardImg.src = image.Poster;
-      container.append(cardImg);
+      cardImg.className = "movieImg";
+      cardImg.src = searchResult.Poster;
+
+      const cardTitle = document.createElement("h2");
+      cardTitle.className = "movieTitle";
+      cardTitle.innerText = searchResult.Title;
+
+      const cardYear = document.createElement("h2");
+      cardYear.className = "movieYear";
+      cardYear.innerText = searchResult.Year;
+
+      card.append(cardImg, cardTitle, cardYear);
     });
   }
 };

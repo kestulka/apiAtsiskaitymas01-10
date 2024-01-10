@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+#inputDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.input {
+  margin-bottom: 15px;
+  border: thin solid black;
+  height: 40px;
+  width: 250px;
+  font-size: 20px;
+}
+#button {
+  height: 40px;
+  width: 250px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.movieImg {
+  object-fit: cover;
+  border: 2px solid red;
+  border-radius: 10px;
+  width: 20rem;
+  height: 30rem;
+  margin-right: 1em;
+}
+
+.movieTitle {
+  color: blue;
+  font-weight: bold;
+  width: 20rem;
+}
+
+.movieYear {
+  font-weight: bolder;
+  color: green;
+}

@@ -4,6 +4,7 @@ document.body.append(divukas);
 const container = document.getElementById("container");
 container.style.boxSizing = "border-box";
 container.style.display = "grid";
+container.style.placeItems = "center";
 
 const button = document.createElement("button");
 button.innerText = "show me some doggies!";
